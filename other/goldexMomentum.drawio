@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:129.0) Gecko/20100101 Firefox/129.0" version="24.7.7">
   <diagram name="Страница — 1" id="dtMutiFH8A61woCl-kT9">
-    <mxGraphModel dx="4672" dy="1580" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1200" math="0" shadow="0">
+    <mxGraphModel dx="3886" dy="1129" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1200" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -651,7 +651,7 @@
           <mxGeometry x="870" y="795" width="140" height="60" as="geometry" />
         </mxCell>
         <mxCell id="4xnYYS_x8qnGNkjNe5Kq-77" value="Эндпоинты" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="870" y="1000" width="140" height="160" as="geometry" />
+          <mxGeometry x="870" y="880" width="140" height="160" as="geometry" />
         </mxCell>
         <mxCell id="4xnYYS_x8qnGNkjNe5Kq-78" value="Получить баланс сотрудника" style="text;strokeColor=#9673a6;fillColor=#e1d5e7;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="4xnYYS_x8qnGNkjNe5Kq-77" vertex="1">
           <mxGeometry y="30" width="140" height="40" as="geometry" />
