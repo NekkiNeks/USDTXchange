@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:129.0) Gecko/20100101 Firefox/129.0" version="24.7.7">
   <diagram name="Страница — 1" id="dtMutiFH8A61woCl-kT9">
-    <mxGraphModel dx="6507" dy="2633" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1200" math="0" shadow="0">
+    <mxGraphModel dx="4213" dy="1317" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1200" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -569,6 +569,15 @@
             </Array>
           </mxGeometry>
         </mxCell>
+        <mxCell id="n0k_lMLok9dX7B7T1IZq-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="4xnYYS_x8qnGNkjNe5Kq-56" target="4xnYYS_x8qnGNkjNe5Kq-137">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1530" y="615" />
+              <mxPoint x="1530" y="630" />
+              <mxPoint x="1790" y="630" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
         <mxCell id="4xnYYS_x8qnGNkjNe5Kq-56" value="Backend" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="1172" y="570" width="120" height="60" as="geometry" />
         </mxCell>
@@ -734,7 +743,7 @@
           <mxGeometry y="300" width="140" height="50" as="geometry" />
         </mxCell>
         <mxCell id="4xnYYS_x8qnGNkjNe5Kq-130" value="Доступ по ролям" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="1720" y="440" width="140" height="220" as="geometry" />
+          <mxGeometry x="1650" y="380" width="140" height="220" as="geometry" />
         </mxCell>
         <mxCell id="4xnYYS_x8qnGNkjNe5Kq-131" value="Администратор" style="text;strokeColor=#b85450;fillColor=#f8cecc;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="4xnYYS_x8qnGNkjNe5Kq-130" vertex="1">
           <mxGeometry y="30" width="140" height="30" as="geometry" />
@@ -753,6 +762,9 @@
         </mxCell>
         <mxCell id="4xnYYS_x8qnGNkjNe5Kq-136" value="Без ограничений" style="text;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="4xnYYS_x8qnGNkjNe5Kq-130" vertex="1">
           <mxGeometry y="190" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="n0k_lMLok9dX7B7T1IZq-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="4xnYYS_x8qnGNkjNe5Kq-137" target="4xnYYS_x8qnGNkjNe5Kq-138">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="4xnYYS_x8qnGNkjNe5Kq-137" value="Авторизация" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="1730" y="690" width="120" height="60" as="geometry" />
