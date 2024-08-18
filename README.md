@@ -11,5 +11,7 @@
 - `Postgres`
 - `knex` (Возможно в будущем изменится на `Prisma`)
 
+[Страница **DBDiogram**](https://dbdiagram.io/d/Exchanger-668bd1449939893dae53d0a0).
+
 ## Frontend
 На данный момент отсутствует
