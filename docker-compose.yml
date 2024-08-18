@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  # Сервис базы данных
+  db:
+    image: postgres:alpine
+    container_name: postgres_database
+    environment:
+      POSTGRES_USER: goldexmomentumdev
+      POSTGRES_PASSWORD: devpass123
+      POSTGRES_DB: goldexmomentum
+    ports:
+      - '5432:5432'
+  backend:
+    image: node:alpine
+    container_name: backend
+    ports:
+      - '3000:3000'
