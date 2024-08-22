@@ -1,0 +1,98 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model currencies {
+  id            String     @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name          String     @unique @db.VarChar
+  exchange_rate Int
+  requests      requests[]
+}
+
+model employees {
+  id        String     @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  role      role
+  name      String     @db.VarChar
+  surname   String     @db.VarChar
+  username  String     @unique @db.VarChar
+  password  String     @db.VarChar
+  createdAt DateTime   @default(now()) @db.Date
+  updatedAt DateTime?  @db.Date
+  telegram  String     @unique @db.VarChar
+  phone     String?    @db.VarChar
+  email     String     @unique @db.VarChar
+  requests  requests[]
+}
+
+model request_files {
+  id         String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  request_id String    @db.Uuid
+  type       file_type
+  createdAt  DateTime  @default(now()) @db.Date
+  updatedAt  DateTime? @db.Date
+  request    requests  @relation(fields: [request_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model requests {
+  id            String          @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  user_id       String          @db.Uuid
+  manager_id    String          @db.Uuid
+  network       network
+  currency_id   String          @db.Uuid
+  amount        Int
+  status        request_status
+  createdAt     DateTime        @default(now()) @db.Date
+  updatedAt     DateTime?       @db.Date
+  request_files request_files[]
+  currency      currencies      @relation(fields: [currency_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  employee      employees       @relation(fields: [manager_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  user          users           @relation(fields: [user_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+}
+
+model users {
+  id        String     @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name      String     @db.VarChar
+  surname   String?    @db.VarChar
+  username  String     @unique @db.VarChar
+  password  String     @db.VarChar()
+  createdAt DateTime   @default(now()) @db.Date
+  updatedAt DateTime?  @db.Date
+  telegram  String?    @unique @db.VarChar
+  email     String     @unique @db.VarChar
+  requests  requests[]
+}
+
+model wallets {
+  id      String  @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  network network
+  address String  @unique @db.VarChar
+}
+
+enum file_type {
+  PICTURE
+  DOCUMENT
+  OTHER
+}
+
+enum network {
+  TRC20
+  ERC20
+  BEP20
+}
+
+enum request_status {
+  CREATED
+  PAID
+  FULFILLED
+}
+
+enum role {
+  ADMIN
+  SENIOR_MANAGER
+  MANAGER
+}

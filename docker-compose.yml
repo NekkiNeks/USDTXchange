@@ -2,17 +2,37 @@ version: '3.8'
 
 services:
   # Сервис базы данных
-  db:
+  database:
     image: postgres:alpine
+    ports:
+      - '5432:5432'
     container_name: postgres_database
     environment:
       POSTGRES_USER: goldexmomentumdev
       POSTGRES_PASSWORD: devpass123
       POSTGRES_DB: goldexmomentum
-    ports:
-      - '5432:5432'
+    volumes:
+      - './database/extensions.sql:/docker-entrypoint-initdb.d/01-extensions.sql'
+      #   - './database/GoldexMomentum.sql:/docker-entrypoint-initdb.d/02-schema.sql'
+    networks:
+      - bridgeNetwork
+
+  # Сервис бэкэнда
   backend:
     image: node:alpine
-    container_name: backend
     ports:
       - '3000:3000'
+    container_name: backend
+    volumes:
+      - ./backend:/backend
+    command: >
+      sh -c 'cd backend 
+      && npm run prisma:migrate
+      && npm run prisma:generate 
+      && npm run start:dev'
+    networks:
+      - bridgeNetwork
+
+networks:
+  bridgeNetwork:
+    driver: bridge
