@@ -16,26 +16,29 @@ export class EmployeesService {
   @UseInterceptors(ClassSerializerInterceptor)
   async findAll() {
     const employees = await this.prisma.client.employees.findMany();
-    return employees.map((employee) => new SerializedEmployee(employee));
+    return employees.map((employee) => SerializedEmployee.create(employee));
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
   async findOne(id: string) {
     const employee = await this.prisma.client.employees.findFirst({ where: { id } });
     if (!employee) throw new BadRequestException('Пользователь с таким ID не был найден.');
-    return new SerializedEmployee(employee);
+    return SerializedEmployee.create(employee);
   }
 
   async update(id: string, updateEmployeeDto: UpdateEmployeeDto) {
     // Пользователь может изменить только свои данные
-    return this.prisma.client.employees.update({
+    const updatedEmployee = await this.prisma.client.employees.update({
       where: { id },
       data: updateEmployeeDto,
     });
+
+    return SerializedEmployee.create(updatedEmployee);
   }
 
   async remove(id: string) {
     // Может только администратор
-    return this.prisma.client.employees.delete({ where: { id } });
+    await this.prisma.client.employees.delete({ where: { id } });
+    return id;
   }
 }
