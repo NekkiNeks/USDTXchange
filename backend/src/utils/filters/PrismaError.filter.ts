@@ -10,7 +10,7 @@ import { Prisma } from '@prisma/client';
 const externalErrorCodeRegex = /^P0d{2}$/;
 
 @Catch(Prisma.PrismaClientKnownRequestError)
-export class PrismaFilter implements ExceptionFilter {
+export default class PrismaFilter implements ExceptionFilter {
   catch(exception: Prisma.PrismaClientKnownRequestError, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const next = ctx.getNext();

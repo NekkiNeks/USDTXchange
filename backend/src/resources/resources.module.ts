@@ -5,6 +5,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 
 @Module({
+  exports: [EmployeesModule, AuthModule, UsersModule],
   imports: [EmployeesModule, UtilsModule, AuthModule, UsersModule],
 })
-export class RoutesModule {}
+export class ResourcesModule {}

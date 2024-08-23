@@ -1,4 +1,4 @@
-import { BadRequestException, ClassSerializerInterceptor, Injectable, UseInterceptors } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
 import { PrismaService } from 'src/utils/prisma/prisma.service';
@@ -13,17 +13,21 @@ export class EmployeesService {
     return this.prisma.client.employees.create({ data: createEmployeeDto });
   }
 
-  @UseInterceptors(ClassSerializerInterceptor)
   async findAll() {
     const employees = await this.prisma.client.employees.findMany();
     return employees.map((employee) => SerializedEmployee.create(employee));
   }
 
-  @UseInterceptors(ClassSerializerInterceptor)
   async findOne(id: string) {
     const employee = await this.prisma.client.employees.findFirst({ where: { id } });
-    if (!employee) throw new BadRequestException('Пользователь с таким ID не был найден.');
+    if (!employee) throw new BadRequestException('Сотрудник с таким ID не был найден.');
     return SerializedEmployee.create(employee);
+  }
+
+  async findOneByUsername(username: string) {
+    const employee = await this.prisma.client.employees.findFirst({ where: { username } });
+    if (!employee) throw new BadRequestException('Сотрудник с таким username не был найден.');
+    return employee;
   }
 
   async update(id: string, updateEmployeeDto: UpdateEmployeeDto) {

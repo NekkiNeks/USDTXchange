@@ -1,10 +1,10 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import responseInterceptor from './utils/interceptors/response.interceptor';
-import InternalErrorFilter from './utils/filters/internalError.filter';
-import ResponseFilter from './utils/filters/responseError.filter';
+import ResponseInterceptor from './utils/interceptors/Response.interceptor';
+import InternalErrorFilter from './utils/filters/InternalError.filter';
+import ResponseFilter from './utils/filters/ResponseError.filter';
+import PrismaFilter from './utils/filters/PrismaError.filter';
 import { ValidationPipe } from '@nestjs/common';
-import { PrismaFilter } from './utils/filters/prismaError.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -12,7 +12,7 @@ async function bootstrap() {
   app.enableCors();
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalFilters(new InternalErrorFilter(), new ResponseFilter(), new PrismaFilter());
-  app.useGlobalInterceptors(new responseInterceptor());
+  app.useGlobalInterceptors(new ResponseInterceptor());
   await app.listen(3000);
 }
 bootstrap();

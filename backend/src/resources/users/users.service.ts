@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/utils/prisma/prisma.service';
-import { SerializedUser } from './entities/user.entity';
+import { iUser, SerializedUser } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
@@ -21,6 +21,12 @@ export class UsersService {
   async findOne(id: string) {
     const user = await this.prisma.client.users.findFirst({ where: { id } });
     return SerializedUser.create(user);
+  }
+
+  async findOneByUsername(username: string) {
+    const user = await this.prisma.client.users.findFirst({ where: { username } });
+    if (!user) throw new BadRequestException('Пользователь с таким username не был найден.');
+    return user;
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
