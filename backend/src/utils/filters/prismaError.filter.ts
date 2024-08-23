@@ -19,7 +19,7 @@ export class PrismaFilter implements ExceptionFilter {
 
     // P2002 - Ошибка уникальности
     if (exception.code === 'P2002') {
-      const message = `Ошибка БД. Следующие поля являются уникальными: ${exception.meta.target}.`;
+      const message = `Ошибка БД. поле ${exception.meta.target} является уникальным.`;
       next(new BadRequestException(message));
       return;
     }
