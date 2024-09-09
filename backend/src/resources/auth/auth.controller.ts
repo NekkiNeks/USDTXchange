@@ -7,6 +7,7 @@ import { SerializedUser } from '../users/entities/user.entity';
 import { SerializedEmployee } from '../employees/entities/employee.entity';
 import { RegisterUserDto } from './dto/registerUser.dto';
 import { LoginUserDto } from './dto/loginUser.dto';
+import PublicRoute from 'src/utils/decorators/PublicRoute.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -17,6 +18,7 @@ export class AuthController {
   ) {}
 
   @Post('user')
+  @PublicRoute()
   async loginUser(@Body() body: LoginUserDto, @Req() request: Request) {
     const user = await this.usersService.findOneByUsername(body.username);
     const { accessToken, refreshToken } = await this.authService.getUserJwt(user);

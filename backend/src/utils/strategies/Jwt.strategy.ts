@@ -3,10 +3,10 @@ import { Strategy, ExtractJwt } from 'passport-jwt';
 import { Request } from 'express';
 import iJwtPayload from 'src/types/jwtPayload';
 
+// TODO: Вынести в .env
 const JWT_SECRET = 'foobar';
 
 const CookiesExtractor = (request: Request) => {
-  console.log('Cookie extractor');
   const token = request.cookies.accessToken;
   if (!token) return null;
   return token;
