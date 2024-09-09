@@ -16,7 +16,7 @@ async function bootstrap() {
   app.enableCors();
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalGuards(new JwtAuthGuard(reflector));
-  app.useGlobalFilters(new InternalErrorFilter(), new ResponseFilter(), new PrismaFilter());
+  app.useGlobalFilters(new PrismaFilter(), new ResponseFilter(), new InternalErrorFilter());
   app.useGlobalInterceptors(new ResponseInterceptor());
   await app.listen(3000);
 }
