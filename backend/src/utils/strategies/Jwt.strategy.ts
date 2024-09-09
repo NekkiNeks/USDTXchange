@@ -22,7 +22,7 @@ export default class extends PassportStrategy(Strategy, 'jwt') {
   }
 
   async validate(payload: iJwtPayload) {
-    console.log('jwt strategy payload: ', payload);
-    return true;
+    // Сохраняем расшифрованные данные в request.jwtdata
+    return { jwtdata: payload };
   }
 }
