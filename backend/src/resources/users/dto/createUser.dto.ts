@@ -1,13 +1,8 @@
-import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
-import { iEmployee } from '../entities/employee.entity';
-import { $Enums, role } from '@prisma/client';
-import {
-  enumMessage,
-  typeMessage,
-  nonEmptyMessage,
-} from 'src/utils/heplers/validationErrorMessageGenerators';
+import { IsNotEmpty, IsString } from 'class-validator';
+import { nonEmptyMessage, typeMessage } from 'src/utils/heplers/validationErrorMessageGenerators';
+import { iUser } from '../entities/user.entity';
 
-export class CreateEmployeeDto implements Partial<iEmployee> {
+export class CreateUserDto implements Partial<iUser> {
   @IsString({ message: typeMessage('username', 'string') })
   @IsNotEmpty({ message: nonEmptyMessage('username') })
   username: string;
@@ -15,10 +10,6 @@ export class CreateEmployeeDto implements Partial<iEmployee> {
   @IsString({ message: typeMessage('password', 'string') })
   @IsNotEmpty({ message: nonEmptyMessage('password') })
   password: string;
-
-  @IsString({ message: typeMessage('role', 'string') })
-  @IsEnum($Enums.role, { message: enumMessage('role', role) })
-  role: $Enums.role;
 
   @IsString({ message: typeMessage('name', 'string') })
   @IsNotEmpty({ message: nonEmptyMessage('name') })
@@ -29,13 +20,9 @@ export class CreateEmployeeDto implements Partial<iEmployee> {
   surname: string;
 
   @IsString({ message: typeMessage('telegram', 'string') })
-  @IsNotEmpty({ message: nonEmptyMessage('telegram') })
-  telegram: string;
+  telegram?: string;
 
   @IsString({ message: typeMessage('email', 'string') })
   @IsNotEmpty({ message: nonEmptyMessage('email') })
   email: string;
-
-  @IsString({ message: typeMessage('phone', 'string') })
-  phone?: string;
 }

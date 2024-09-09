@@ -33,6 +33,7 @@ export default class PrismaFilter implements ExceptionFilter {
 
     const message = 'Внутренняя ошибка Базы данных. Администратор будет уведомлен о неполадках.';
     next(new InternalServerErrorException(message));
+    return;
   }
 }
 

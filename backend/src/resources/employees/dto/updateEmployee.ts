@@ -1,5 +1,5 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { CreateEmployeeDto } from './create-employee.dto';
+import { CreateEmployeeDto } from './createEmployee';
 import { typeMessage } from 'src/utils/heplers/validationErrorMessageGenerators';
 import { IsString } from 'class-validator';
 

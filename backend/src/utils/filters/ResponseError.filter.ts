@@ -22,5 +22,6 @@ export default class ResponseFilter implements ExceptionFilter {
     };
 
     response.status(status).send(res);
+    return;
   }
 }

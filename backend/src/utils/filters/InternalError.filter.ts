@@ -14,7 +14,7 @@ export default class InternalErrorFilter implements ExceptionFilter {
     if (response.statusCode !== 500) next();
     const requestMessagePart = `Запрос: \n  url: ${request.url} \n  ip: ${request.ip} \n  body: ${JSON.stringify(request.body, null, 2)}, \n  headers: ${JSON.stringify(request.headers, null, 2)}`;
     const errorMessage = `Внутренняя ошибка сервера! \n Ошибка: \n  ${exception.message}\n ${requestMessagePart}, \nАдминистратор будет уведомлен.`;
-    // console.error(errorMessage);
+    console.error(`Внутренняя ошибка: ${exception.message}`);
 
     // TODO: Добавить уведомление администратора по почте указанной в process.env.ADMIN_EMAIL
 
@@ -23,10 +23,11 @@ export default class InternalErrorFilter implements ExceptionFilter {
     const res: unifiedResponse = {
       success: false,
       data: null,
-      message: 'Внутренняя ошибка сервера. Администратор будет уведомлен.',
+      message: errorMessage,
       status,
     };
 
     response.status(status).send(res);
+    return;
   }
 }
