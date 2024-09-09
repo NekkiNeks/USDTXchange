@@ -2,13 +2,14 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { EmployeesService } from './employees.service';
 import { CreateEmployeeDto } from './dto/createEmployee';
 import { UpdateEmployeeDto } from './dto/updateEmployee';
+import { Roles } from 'src/utils/decorators/Roles.decorator';
 
 @Controller('employees')
 export class EmployeesController {
   constructor(private readonly employeesService: EmployeesService) {}
 
-  // TODO: Добавить guard на создание сотрудника.
   @Post()
+  @Roles('ADMIN')
   create(@Body() createEmployeeDto: CreateEmployeeDto) {
     return this.employeesService.create(createEmployeeDto);
   }

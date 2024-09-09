@@ -1,4 +1,4 @@
-import { Body, Controller, InternalServerErrorException, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post, Req } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Request } from 'express';
 import { UsersService } from '../users/users.service';
@@ -8,6 +8,7 @@ import { SerializedEmployee } from '../employees/entities/employee.entity';
 import { RegisterUserDto } from './dto/registerUser.dto';
 import { LoginUserDto } from './dto/loginUser.dto';
 import PublicRoute from 'src/utils/decorators/PublicRoute.decorator';
+import { Roles } from 'src/utils/decorators/Roles.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -28,6 +29,7 @@ export class AuthController {
   }
 
   @Post('employee')
+  @PublicRoute()
   async loginEmployee(@Body() body: LoginUserDto, @Req() request: Request) {
     const employee = await this.employeesService.findOneByUsername(body.username);
     const { accessToken, refreshToken } = await this.authService.getEmployeeJwt(employee);
@@ -37,6 +39,7 @@ export class AuthController {
   }
 
   @Post('user/register')
+  @PublicRoute()
   async registerUser(@Body() body: RegisterUserDto, @Req() request: Request) {
     const user = await this.usersService.create(body);
     const { accessToken, refreshToken } = await this.authService.getUserJwt(user);
@@ -46,6 +49,7 @@ export class AuthController {
   }
 
   @Post('logout')
+  @PublicRoute()
   logout() {
     // TODO: Добавить логику удаления кук
     return 'test';

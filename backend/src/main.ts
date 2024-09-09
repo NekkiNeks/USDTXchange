@@ -7,6 +7,7 @@ import PrismaFilter from './utils/filters/PrismaError.filter';
 import * as cookieParser from 'cookie-parser';
 import { ValidationPipe } from '@nestjs/common';
 import JwtAuthGuard from './utils/guards/Jwt.guard';
+import { RolesGuard } from './utils/guards/Roles.guard';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -15,7 +16,7 @@ async function bootstrap() {
   app.use(cookieParser());
   app.enableCors();
   app.useGlobalPipes(new ValidationPipe());
-  app.useGlobalGuards(new JwtAuthGuard(reflector));
+  app.useGlobalGuards(new JwtAuthGuard(reflector), new RolesGuard(reflector));
   app.useGlobalFilters(new PrismaFilter(), new ResponseFilter(), new InternalErrorFilter());
   app.useGlobalInterceptors(new ResponseInterceptor());
   await app.listen(3000);
