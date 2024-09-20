@@ -18,7 +18,7 @@ export class UsersService {
     return users.map((user) => SerializedUser.create(user));
   }
 
-  async findOne(id: string) {
+  async findOneById(id: string) {
     const user = await this.prisma.client.users.findFirst({ where: { id } });
     return SerializedUser.create(user);
   }

@@ -3,9 +3,10 @@ import { EmployeesModule } from './employees/employees.module';
 import { UtilsModule } from 'src/utils/utils.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { CurrenciesModule } from './currencies/currencies.module';
 
 @Module({
   exports: [EmployeesModule, AuthModule, UsersModule],
-  imports: [EmployeesModule, UtilsModule, AuthModule, UsersModule],
+  imports: [EmployeesModule, UtilsModule, AuthModule, UsersModule, CurrenciesModule],
 })
 export class ResourcesModule {}
