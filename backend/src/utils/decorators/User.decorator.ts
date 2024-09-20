@@ -3,6 +3,9 @@ import iJwtPayload from 'src/types/jwtPayload';
 
 export type IUserInfo = iJwtPayload | null;
 
+/**
+ * Данный декоратор позволяет получить доступ к данным пользователя, который делает запрос
+ */
 export const UserInfo = createParamDecorator((_: unknown, ctx: ExecutionContext) => {
   const request = ctx.switchToHttp().getRequest();
 

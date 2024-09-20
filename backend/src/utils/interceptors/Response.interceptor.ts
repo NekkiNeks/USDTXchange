@@ -3,6 +3,9 @@ import { NestInterceptor, ExecutionContext, CallHandler } from '@nestjs/common';
 import unfiedResponse from 'src/types/unifiedResponse';
 import { Response } from 'express';
 
+/**
+ * Данный интерцептор служит для оборачивания всех результатов запросов в унифицированный вид
+ */
 export default class implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler<any>): Observable<any> {
     return next.handle().pipe(

@@ -9,6 +9,9 @@ import { Prisma } from '@prisma/client';
 
 const externalErrorCodeRegex = /^P0d{2}$/;
 
+/**
+ * Данный фильтр позволяет отлавливать все ошибки от Prisma в эндпоинтах и возвращать соответствующие ошибки
+ */
 @Catch(Prisma.PrismaClientKnownRequestError)
 export default class PrismaFilter implements ExceptionFilter {
   catch(exception: Prisma.PrismaClientKnownRequestError, host: ArgumentsHost) {

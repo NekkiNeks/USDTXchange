@@ -3,7 +3,9 @@ import { Catch, HttpException, ExceptionFilter, ArgumentsHost } from '@nestjs/co
 import { Response } from 'express';
 import unifiedResponse from 'src/types/unifiedResponse';
 
-// Данный фильтр оборачивает ответ от сервера в унифицированный вид
+/**
+ * Данный фильтр оборачивает ответ от сервера в унифицированный вид
+ */
 @Catch()
 export default class ResponseFilter implements ExceptionFilter {
   catch(exception: Error, host: ArgumentsHost) {

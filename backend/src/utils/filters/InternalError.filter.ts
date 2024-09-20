@@ -2,7 +2,9 @@ import { Catch, ExceptionFilter, ArgumentsHost, HttpStatus, InternalServerErrorE
 import { Response, Request } from 'express';
 import unifiedResponse from 'src/types/unifiedResponse';
 
-// Данный фильтр отслеживает внутренние ошибки сервера и уведомляет об этом Администратора сервиса
+/**
+ * Данный фильтр отслеживает внутренние ошибки сервера и уведомляет об этом Администратора сервиса
+ */
 @Catch(InternalServerErrorException)
 export default class InternalErrorFilter implements ExceptionFilter {
   catch(exception: InternalServerErrorException, host: ArgumentsHost) {
