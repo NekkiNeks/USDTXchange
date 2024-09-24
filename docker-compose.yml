@@ -25,6 +25,7 @@ services:
     container_name: backend
     volumes:
       - ./backend:/backend
+      - .env:/backend/.env
     command: >
       sh -c 'cd backend 
       && npm run prisma:migrate

@@ -2,9 +2,8 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Strategy, ExtractJwt } from 'passport-jwt';
 import { Request } from 'express';
 import iJwtPayload from 'src/types/jwtPayload';
-
-// TODO: Вынести в .env
-const JWT_SECRET = 'foobar';
+import { ConfigService } from '@nestjs/config';
+import { Injectable } from '@nestjs/common';
 
 /**
  * Данная функция позволяет получать токен из cookie с названием accessToken в запросе.
@@ -20,12 +19,16 @@ const CookiesExtractor = (request: Request) => {
 /**
  * Данная стратегия позволяет валидировать токен при запросе, а так же помещать данные из токена в `request.user.jwtdata`.
  */
+@Injectable()
 export default class extends PassportStrategy(Strategy, 'jwt') {
-  constructor() {
+  constructor(private configService: ConfigService) {
+    const secret = configService.get<string>('JWT_SECRET');
+    console.log('secret: ', secret);
+
     super({
       jwtFromRequest: ExtractJwt.fromExtractors([CookiesExtractor]),
       ignoreExpiration: false,
-      secretOrKey: JWT_SECRET,
+      secretOrKey: configService.get<string>('JWT_SECRET'),
     });
   }
 

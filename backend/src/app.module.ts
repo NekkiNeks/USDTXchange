@@ -7,15 +7,15 @@ import { UsersService } from './resources/users/users.service';
 import { EmployeesService } from './resources/employees/employees.service';
 import { AuthService } from './resources/auth/auth.service';
 import { JwtModule } from '@nestjs/jwt';
+import { ConfigModule } from '@nestjs/config';
 import JwtStrategy from './utils/strategies/Jwt.strategy';
+import { jwtModuleAsyncConfig } from './utils/config';
+// Настройка JWT модуля используя .env и ConfigService
 
-const jwtModule = JwtModule.register({
-  // TODO: Перенести в env
-  secret: 'foobar',
-});
+const jwtModuleAsync = JwtModule.registerAsync(jwtModuleAsyncConfig);
 
 @Module({
-  imports: [UtilsModule, ResourcesModule, jwtModule],
+  imports: [ConfigModule.forRoot({ isGlobal: true }), UtilsModule, ResourcesModule, jwtModuleAsync],
   controllers: [AppController],
   providers: [AppService, UsersService, EmployeesService, AuthService, JwtStrategy],
 })
