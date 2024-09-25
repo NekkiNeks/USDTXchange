@@ -3,14 +3,14 @@ import { Exclude, plainToInstance } from 'class-transformer';
 
 type user = Prisma.usersGetPayload<{}>;
 
-type userWithRequest = Prisma.usersGetPayload<{
+type userWithOrders = Prisma.usersGetPayload<{
   include: {
-    requests: true;
+    orders: true;
   };
 }>;
 
 export interface iUser extends user {}
-export interface iUserWithRequest extends userWithRequest {}
+export interface iUserWithOrders extends userWithOrders {}
 
 export class SerializedUser implements iUser {
   /**

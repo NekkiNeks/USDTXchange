@@ -22,9 +22,6 @@ const CookiesExtractor = (request: Request) => {
 @Injectable()
 export default class extends PassportStrategy(Strategy, 'jwt') {
   constructor(private configService: ConfigService) {
-    const secret = configService.get<string>('JWT_SECRET');
-    console.log('secret: ', secret);
-
     super({
       jwtFromRequest: ExtractJwt.fromExtractors([CookiesExtractor]),
       ignoreExpiration: false,

@@ -1,7 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateCurrencyDto } from './dto/create-currency.dto';
 import { UpdateCurrencyDto } from './dto/update-currency.dto';
-import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/utils/prisma/prisma.service';
 
 @Injectable()
