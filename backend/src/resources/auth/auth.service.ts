@@ -6,6 +6,10 @@ import eUserType from 'src/types/userType';
 import { JwtService } from '@nestjs/jwt';
 import { iUser } from '../users/entities/user.entity';
 import { iEmployee } from '../employees/entities/employee.entity';
+import { ConfigService } from '@nestjs/config';
+
+const DEFAULT_ACCESS_EXPIRES = '1h';
+const DEFAULT_REFRESH_EXPIRES = '7d';
 
 interface iPerson {
   password: string;
@@ -19,6 +23,7 @@ interface iJwtTokens {
 @Injectable()
 export class AuthService {
   constructor(
+    private configService: ConfigService,
     private usersService: UsersService,
     private employeesService: EmployeesService,
     private jwt: JwtService,
@@ -57,10 +62,12 @@ export class AuthService {
   }
 
   private getJwtTokens(payload: iJwtPayload): iJwtTokens {
-    // TODO: Переделать строки на env
+    const accessTokenExpires = this.configService.get<string>('ACCESS_TOKEN_EXPIRES') || DEFAULT_ACCESS_EXPIRES;
+    const refreshTokenExpires = this.configService.get<string>('REFRESH_TOKEN_EXPIRES') || DEFAULT_REFRESH_EXPIRES;
+
     return {
-      accessToken: this.jwt.sign(payload, { expiresIn: '1h' }),
-      refreshToken: this.jwt.sign(payload, { expiresIn: '7d' }),
+      accessToken: this.jwt.sign(payload, { expiresIn: accessTokenExpires }),
+      refreshToken: this.jwt.sign(payload, { expiresIn: refreshTokenExpires }),
     };
   }
 

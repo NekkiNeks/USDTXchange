@@ -51,9 +51,8 @@ export class AuthController {
   @Post('logout')
   @PublicRoute()
   logout(@Req() request: Request) {
-    // TODO: Добавить логику удаления кук
     request.res.clearCookie('accessToken');
     request.res.clearCookie('refreshToken');
-    return 'test';
+    return 'Куки успешно очищены';
   }
 }

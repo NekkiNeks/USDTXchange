@@ -12,9 +12,6 @@ export const UserInfo = createParamDecorator((_: unknown, ctx: ExecutionContext)
   // Получаем данные из свойства jwtdata, которое было добавлено в методе validate JWT стратегии.
   const data = request.user.jwtdata;
 
-  // TODO: Удалить после тестов
-  console.log(`Данные UserInfo: ${JSON.stringify(data, null, 2)}`);
-
   // Проверка на неверное использование декоратора.
   if (!data) {
     const message = 'Использование декоратора @UserInfo() в публичном эндпоинте запрещено.';
