@@ -1,6 +1,6 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateOrderDto } from './dto/create-order.dto';
-import { UpdateOrderDto } from './dto/update-order.dto';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { CreateOrderDto } from './dto/createOrder.dto';
+import { UpdateOrderDto } from './dto/updateOrder.dto';
 import { PrismaService } from 'src/utils/prisma/prisma.service';
 import { orderStatus } from '@prisma/client';
 import { EmployeesService } from '../employees/employees.service';
@@ -54,11 +54,23 @@ export class OrdersService {
     if (!order) throw new NotFoundException('Заявка с таким ID не была найдена');
   }
 
-  update(id: string, updateOrderDto: UpdateOrderDto) {
+  async update(id: string, updateOrderDto: UpdateOrderDto) {
+    const order = await this.prisma.client.order.findFirst({ where: { id } });
+
+    if (order.status !== 'CREATED') {
+      throw new BadRequestException('Нельзя изменить заявку, которая уже принята в работу');
+    }
+
     return this.prisma.client.order.update({ where: { id }, data: updateOrderDto });
   }
 
-  remove(id: string) {
+  async remove(id: string) {
+    const order = await this.prisma.client.order.findFirst({ where: { id } });
+
+    if (order.status !== 'CREATED') {
+      throw new BadRequestException('Нельзя удалить заявку, которая уже принята в работу');
+    }
+
     return this.prisma.client.order.delete({ where: { id } });
   }
 }

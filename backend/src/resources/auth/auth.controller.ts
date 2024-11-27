@@ -8,7 +8,7 @@ import { SerializedEmployee } from '../employees/entities/employee.entity';
 import { RegisterUserDto } from './dto/registerUser.dto';
 import { LoginUserDto } from './dto/loginUser.dto';
 import PublicRoute from 'src/utils/decorators/PublicRoute.decorator';
-import { Roles } from 'src/utils/decorators/Roles.decorator';
+import { ApiOperation } from '@nestjs/swagger';
 
 @Controller('auth')
 export class AuthController {
@@ -20,6 +20,10 @@ export class AuthController {
 
   @Post('user')
   @PublicRoute()
+  @ApiOperation({
+    summary: 'Вход пользователя в систему',
+    description: 'Возвращает данные пользователя, а так же добавляет токены в cookies',
+  })
   async loginUser(@Body() body: LoginUserDto, @Req() request: Request) {
     const user = await this.usersService.findOneByUsername(body.username);
 
@@ -31,6 +35,10 @@ export class AuthController {
 
   @Post('employee')
   @PublicRoute()
+  @ApiOperation({
+    summary: 'Вход сотрудника в систему',
+    description: 'Возвращает данные сотрудника, а так же добавляет токены в cookies',
+  })
   async loginEmployee(@Body() body: LoginUserDto, @Req() request: Request) {
     const employee = await this.employeesService.findOneByUsername(body.username);
     const { accessToken, refreshToken } = await this.authService.getEmployeeJwt(employee);
@@ -41,6 +49,10 @@ export class AuthController {
 
   @Post('user/register')
   @PublicRoute()
+  @ApiOperation({
+    summary: 'Регистрация пользвателя',
+    description: 'Возвращает данные пользователя, а так же добавляет токены в cookies',
+  })
   async registerUser(@Body() body: RegisterUserDto, @Req() request: Request) {
     const user = await this.usersService.create(body);
     const { accessToken, refreshToken } = await this.authService.getUserJwt(user);
@@ -51,6 +63,10 @@ export class AuthController {
 
   @Post('logout')
   @PublicRoute()
+  @ApiOperation({
+    summary: 'Выход из системы (как пользователя, так и сотрудника)',
+    description: 'Возвращает информационное сообщение и удаляет токены из cookies',
+  })
   logout(@Req() request: Request) {
     request.res.clearCookie('accessToken');
     request.res.clearCookie('refreshToken');
