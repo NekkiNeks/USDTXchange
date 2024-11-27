@@ -36,8 +36,8 @@ export class OrdersController {
   }
 
   @Get('user/:id')
-  findAllByUserId() {
-    // Получение всех заявок определенного пользователя
+  findAllByUserId(@Param('id') userId: string) {
+    return this.ordersService.findAllByUserId(userId);
   }
 
   @Get('user/my')
@@ -49,15 +49,15 @@ export class OrdersController {
 
     const userId = user.id;
 
-    // Получение всех заявок по id пользователя
+    return this.ordersService.findAllByUserId(userId);
   }
 
   @Get('employee/my')
   @Roles('ADMIN', 'MANAGER', 'SENIOR_MANAGER')
   findAllEmployeesOrders(@UserInfo() employee: IUserInfo) {
-    const employeeId = employee.id;
+    const managerId = employee.id;
 
-    // Получение всех заявок, назначенных на данного сотрудника
+    return this.ordersService.findAllEmployeesOrders(managerId);
   }
 
   @Patch(':id')

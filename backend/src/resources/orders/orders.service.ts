@@ -44,6 +44,10 @@ export class OrdersService {
     return this.prisma.client.order.findMany({ where: { userId } });
   }
 
+  findAllEmployeesOrders(managerId: string) {
+    return this.prisma.client.order.findMany({ where: { managerId } });
+  }
+
   async findOne(id: string) {
     const order = await this.prisma.client.order.findFirst({ where: { id } });
 
