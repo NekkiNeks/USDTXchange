@@ -13,12 +13,7 @@ export class CurrenciesService {
    * @returns Возвращает созданную валюту
    */
   async create(createCurrencyDto: CreateCurrencyDto) {
-    const data = {
-      name: createCurrencyDto.name,
-      exchange_rate: createCurrencyDto.exchangeRate,
-    };
-
-    return this.prisma.client.currencies.create({ data });
+    return this.prisma.client.currency.create({ data: createCurrencyDto });
   }
 
   /**
@@ -26,7 +21,7 @@ export class CurrenciesService {
    * @returns Возвращает массив валют.
    */
   async findAll() {
-    return this.prisma.client.currencies.findMany();
+    return this.prisma.client.currency.findMany();
   }
 
   /**
@@ -35,7 +30,7 @@ export class CurrenciesService {
    * @returns Возвращает найденую валюту или NotFountException если валюта не была найдена.
    */
   async findOneById(id: string) {
-    const result = await this.prisma.client.currencies.findFirst({ where: { id } });
+    const result = await this.prisma.client.currency.findFirst({ where: { id } });
     if (!result) throw new NotFoundException('Ошибка при получении валюты: Валюта с таким ID не была найдена.');
 
     return result;
@@ -48,11 +43,7 @@ export class CurrenciesService {
    * @returns Возвращает обновленную валюту или NotFoundException если валюта не была найдена.
    */
   async update(id: string, updateCurrencyDto: UpdateCurrencyDto) {
-    const data = {
-      name: updateCurrencyDto.name,
-      exchange_rate: updateCurrencyDto.exchangeRate,
-    };
-    const result = await this.prisma.client.currencies.update({ where: { id }, data });
+    const result = await this.prisma.client.currency.update({ where: { id }, data: updateCurrencyDto });
     if (!result) throw new NotFoundException('Ошибка при обновлении валюты: Валюта с таким ID не была найдена.');
 
     return result;
@@ -64,7 +55,7 @@ export class CurrenciesService {
    * @returns Возвращает удаленную валюту или NotFoundException если валюта не была найдена.
    */
   async remove(id: string) {
-    const result = await this.prisma.client.currencies.delete({ where: { id } });
+    const result = await this.prisma.client.currency.delete({ where: { id } });
     if (!result) throw new NotFoundException('Ошибка при удалении валюты: Валюта с таким ID не была найдена.');
 
     return result;

@@ -12,13 +12,19 @@ const externalErrorCodeRegex = /^P0d{2}$/;
 /**
  * Данный фильтр позволяет отлавливать все ошибки от Prisma в эндпоинтах и возвращать соответствующие ошибки
  */
-@Catch(Prisma.PrismaClientKnownRequestError)
+@Catch(
+  Prisma.PrismaClientKnownRequestError,
+  Prisma.PrismaClientUnknownRequestError,
+  Prisma.PrismaClientRustPanicError,
+  Prisma.PrismaClientValidationError,
+)
 export default class PrismaFilter implements ExceptionFilter {
   catch(exception: Prisma.PrismaClientKnownRequestError, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const next = ctx.getNext();
 
-    console.log('Код ошибки Prisma: ', exception.code);
+    console.error('Код ошибки Prisma: ', exception.code);
+    console.error('Текст ошибки: ', exception.message);
 
     // P2002 - Ошибка уникальности
     if (exception.code === 'P2002') {

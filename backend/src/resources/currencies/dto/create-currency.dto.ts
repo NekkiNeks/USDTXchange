@@ -1,7 +1,10 @@
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { nonEmptyMessage, typeMessage } from 'src/utils/heplers/validationErrorMessageGenerators';
+import { iCreateCurrency } from '../entities/currency.entity';
 
-export class CreateCurrencyDto {
+interface iCreateCurrencyDto extends iCreateCurrency {}
+
+export class CreateCurrencyDto implements iCreateCurrencyDto {
   @IsString({ message: typeMessage('name', 'string') })
   @IsNotEmpty({ message: nonEmptyMessage('name') })
   name: string;

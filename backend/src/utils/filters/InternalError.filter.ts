@@ -5,7 +5,7 @@ import unifiedResponse from 'src/types/unifiedResponse';
 /**
  * Данный фильтр отслеживает внутренние ошибки сервера и уведомляет об этом Администратора сервиса
  */
-@Catch(InternalServerErrorException)
+@Catch(InternalServerErrorException, TypeError)
 export default class InternalErrorFilter implements ExceptionFilter {
   catch(exception: InternalServerErrorException, host: ArgumentsHost) {
     const ctx = host.switchToHttp();

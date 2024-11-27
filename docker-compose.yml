@@ -11,11 +11,16 @@ services:
       POSTGRES_USER: goldexmomentumdev
       POSTGRES_PASSWORD: devpass123
       POSTGRES_DB: goldexmomentum
-    volumes:
-      - './database/extensions.sql:/docker-entrypoint-initdb.d/01-extensions.sql'
-      #   - './database/GoldexMomentum.sql:/docker-entrypoint-initdb.d/02-schema.sql'
+    # volumes:
+    #   - './database/extensions.sql:/docker-entrypoint-initdb.d/01-extensions.sql'
+    #   - './database/GoldexMomentum.sql:/docker-entrypoint-initdb.d/02-schema.sql'
     networks:
       - bridgeNetwork
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U goldexmomentumdev -d goldexmomentum']
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   # Сервис бэкэнда
   backend:
@@ -25,12 +30,20 @@ services:
     container_name: backend
     volumes:
       - ./backend:/backend
-      - .env:/backend/.env
+      # - .env:/backend/.env
+    environment:
+      - DATABASE_URL=postgresql://goldexmomentumdev:devpass123@database:5432/goldexmomentum?schema=public
+      - JWT_SECRET=FooBar123
+      - ACCESS_TOKEN_EXPIRES=2h
+      - REFRESH_TOKEN_EXPIRES=6d
     command: >
       sh -c 'cd backend 
       && npm run prisma:migrate
       && npm run prisma:generate 
       && npm run start:dev'
+    depends_on:
+      database:
+        condition: service_healthy
     networks:
       - bridgeNetwork
 

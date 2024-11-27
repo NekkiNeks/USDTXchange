@@ -41,7 +41,7 @@ export class AuthService {
 
   async getEmployeeJwt(employee: iEmployee) {
     const payload = {
-      userId: employee.id,
+      id: employee.id,
       username: employee.username,
       role: employee.role,
       type: eUserType.EMPLOYEE,
@@ -52,7 +52,7 @@ export class AuthService {
 
   async getUserJwt(user: iUser) {
     const payload = {
-      userId: user.id,
+      id: user.id,
       username: user.username,
       role: null,
       type: eUserType.USER,

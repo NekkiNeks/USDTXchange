@@ -10,7 +10,7 @@ export const UserInfo = createParamDecorator((_: unknown, ctx: ExecutionContext)
   const request = ctx.switchToHttp().getRequest();
 
   // Получаем данные из свойства jwtdata, которое было добавлено в методе validate JWT стратегии.
-  const data = request.user.jwtdata;
+  const data = request.user.jwtdata as iJwtPayload | null;
 
   // Проверка на неверное использование декоратора.
   if (!data) {

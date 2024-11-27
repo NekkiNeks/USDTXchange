@@ -22,6 +22,7 @@ export class AuthController {
   @PublicRoute()
   async loginUser(@Body() body: LoginUserDto, @Req() request: Request) {
     const user = await this.usersService.findOneByUsername(body.username);
+
     const { accessToken, refreshToken } = await this.authService.getUserJwt(user);
     request.res.cookie('accessToken', accessToken);
     request.res.cookie('refreshToken', refreshToken);

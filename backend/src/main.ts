@@ -8,6 +8,13 @@ import * as cookieParser from 'cookie-parser';
 import { ValidationPipe } from '@nestjs/common';
 import JwtAuthGuard from './utils/guards/Jwt.guard';
 import { RolesGuard } from './utils/guards/Roles.guard';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+
+const swaggerConfig = new DocumentBuilder()
+  .setTitle('careConnect')
+  .setDescription('Документация основного сервиса careConnect')
+  .setVersion('1.0')
+  .build();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -17,8 +24,13 @@ async function bootstrap() {
   app.enableCors();
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalGuards(new JwtAuthGuard(reflector), new RolesGuard(reflector));
-  app.useGlobalFilters(new PrismaFilter(), new ResponseFilter(), new InternalErrorFilter());
+  app.useGlobalFilters(new ResponseFilter(), new PrismaFilter(), new InternalErrorFilter());
   app.useGlobalInterceptors(new ResponseInterceptor());
+
+  // Настройка документации OpenAPI
+  const documentFactory = () => SwaggerModule.createDocument(app, swaggerConfig);
+  SwaggerModule.setup('docs', app, documentFactory);
+
   await app.listen(3000);
 }
 bootstrap();

@@ -1,9 +1,11 @@
 import { IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
-import { iEmployee } from '../entities/employee.entity';
+import { iCreateEmployee, iEmployee } from '../entities/employee.entity';
 import { $Enums, role } from '@prisma/client';
 import { enumMessage, typeMessage, nonEmptyMessage } from 'src/utils/heplers/validationErrorMessageGenerators';
 
-export class CreateEmployeeDto implements Partial<iEmployee> {
+export interface iCreateEmployeeDto extends iCreateEmployee {}
+
+export class CreateEmployeeDto implements iCreateEmployeeDto {
   @IsString({ message: typeMessage('username', 'string') })
   @IsNotEmpty({ message: nonEmptyMessage('username') })
   username: string;

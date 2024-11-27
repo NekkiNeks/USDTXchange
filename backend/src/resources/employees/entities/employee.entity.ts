@@ -1,16 +1,19 @@
 import { $Enums, Prisma } from '@prisma/client';
 import { Exclude, plainToInstance } from 'class-transformer';
 
-type employee = Prisma.employeesGetPayload<{}>;
+type employee = Prisma.EmployeeGetPayload<{}>;
 
-type employeeWithOrders = Prisma.employeesGetPayload<{
+type employeeWithOrders = Prisma.EmployeeGetPayload<{
   include: {
     orders: true;
   };
 }>;
 
+type createEmployeeData = Prisma.EmployeeCreateManyInput;
+
 export interface iEmployee extends employee {}
 export interface iEmployeeWithOrders extends employeeWithOrders {}
+export interface iCreateEmployee extends createEmployeeData {}
 
 export class SerializedEmployee implements iEmployee {
   /**

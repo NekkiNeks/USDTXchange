@@ -2,7 +2,7 @@ import { role } from '@prisma/client';
 import userType from './userType';
 
 export default interface iJwtPayload {
-  userId: string;
+  id: string;
   username: string;
   type: userType;
   role: role | null;

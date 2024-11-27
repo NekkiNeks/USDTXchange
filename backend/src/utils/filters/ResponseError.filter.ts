@@ -3,6 +3,22 @@ import { Catch, HttpException, ExceptionFilter, ArgumentsHost } from '@nestjs/co
 import { Response } from 'express';
 import unifiedResponse from 'src/types/unifiedResponse';
 
+function getErrorMessage(exception: any) {
+  try {
+    if (Array.isArray(exception.response.message)) {
+      return exception?.response?.message?.join(' \n');
+    }
+
+    if (exception.response && exception.response.message) {
+      return exception?.response?.message;
+    }
+
+    return exception.message;
+  } catch (error: any) {
+    return 'Неизвестная ошибка';
+  }
+}
+
 /**
  * Данный фильтр оборачивает ответ от сервера в унифицированный вид
  */
@@ -18,19 +34,16 @@ export default class ResponseFilter implements ExceptionFilter {
       status = exception.getStatus();
     }
 
-    // TODO: Выяснить почему так происходит
     if (status < 400) {
-      console.error('Неверный статус при ошибке в ResponseError.filter.ts');
+      console.error('Внутренняя ошибка сервера. Неверный статус при отлавливании ошибки в ResponseError.filter.ts');
       status = 500;
     }
-
-    const message = exception.message;
 
     const res: unifiedResponse = {
       success: false,
       data: null,
       status,
-      message: message || exception.message,
+      message: getErrorMessage(exception),
     };
 
     response.status(status).send(res);

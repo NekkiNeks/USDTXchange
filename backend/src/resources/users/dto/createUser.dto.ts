@@ -1,8 +1,10 @@
 import { IsNotEmpty, IsString } from 'class-validator';
 import { nonEmptyMessage, typeMessage } from 'src/utils/heplers/validationErrorMessageGenerators';
-import { iUser } from '../entities/user.entity';
+import { iCreateUser, iUser } from '../entities/user.entity';
 
-export class CreateUserDto implements Partial<iUser> {
+export interface iCreateUserDto extends iCreateUser {}
+
+export class CreateUserDto implements iCreateUserDto {
   @IsString({ message: typeMessage('username', 'string') })
   @IsNotEmpty({ message: nonEmptyMessage('username') })
   username: string;
