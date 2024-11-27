@@ -11,8 +11,8 @@ import { RolesGuard } from './utils/guards/Roles.guard';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 const swaggerConfig = new DocumentBuilder()
-  .setTitle('careConnect')
-  .setDescription('Документация основного сервиса careConnect')
+  .setTitle('USDTXchange')
+  .setDescription('Документация сервиса USDTXchange')
   .setVersion('1.0')
   .build();
 
